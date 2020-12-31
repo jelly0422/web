@@ -8,17 +8,31 @@
           </el-carousel-item>
         </el-carousel>
       </div>
-      <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
-      </el-container>
+      <div v-for="module in moduleList">
+        <GoodsModule v-bind:module="module"></GoodsModule>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import GoodsModule from "./GoodsModule";
 export default {
   name: "MainStore",
+  components:{
+    GoodsModule
+  },
+  data (){
+    return {
+      moduleList: ["男装","女装","童装"],
+    }
+  },
+  methods:{
+
+  },
+  created() {
+
+  }
 }
 </script>
 
