@@ -38,7 +38,7 @@
                   </el-input>
                 </el-menu-item>
                 <el-menu-item>
-                  <el-button type="primary" icon="el-icon-search" id="search">搜索</el-button>
+                  <el-button type="primary" icon="el-icon-search">搜索</el-button>
                 </el-menu-item>
               </el-menu>
             </div>
@@ -68,6 +68,8 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     }
+  },
+  created() {
   }
 }
 </script>
@@ -109,10 +111,6 @@ export default {
 
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
-}
-#search{
-  background-color: #774068;
-  border-color: #774068;
 }
 a{
   text-align: center;
