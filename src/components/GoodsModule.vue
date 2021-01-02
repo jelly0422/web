@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- <el-container>
+    <el-container>
       <el-header>{{ module }}</el-header>
       <el-main>Main</el-main>
-    </el-container> -->
+    </el-container>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
   name: "GoodsModule",
   data(){
-    return{}
+
   },
   props: {
     module:{
