@@ -6,6 +6,9 @@
       <a href="#/regist" class="a" id="regist">注册</a>
     </div>
     <a href="#/goodsinfo">商品详情</a>
+    <a href="#/goods">商品</a>
+    <a href="#/cart">购物车</a>
+    <a href="#/userctrl">个人中心</a>
     <div>
       <!-- float 布局 -->
       <section class="layout absolute">
@@ -42,7 +45,7 @@
                 </el-menu-item>
               </el-menu>
             </div>
-            <router-view></router-view>
+            <div><router-view></router-view></div>
           </div>
         </article>
       </section>
@@ -53,11 +56,9 @@
 
 <script>
 import MainStore from "./MainStore";
+
 export default {
   name: "HomePage",
-  components:{
-    MainStore
-  },
   data() {
     return {
       activeIndex: '1',
