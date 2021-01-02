@@ -1,4 +1,5 @@
 <template>
+  <!-- 商品详情 -->
   <div>
     <div id="imgs">
       <el-carousel indicator-position="outside" height="450px">

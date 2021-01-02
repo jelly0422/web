@@ -10,7 +10,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 Vue.prototype.$http = axios//将$http修改为axios
 Vue.config.productionTip = false
-
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'http://localhost:8082/';  
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -6,6 +6,10 @@ import Regist from "../components/Regist";
 import MainStore from "../components/MainStore";
 import GoodsInfo from "../components/GoodsInfo";
 
+import RegistEmail from "../components/RegistEmail"
+import RegistCheck from "../components/RegistCheck"
+import RegistPsw from '../components/RegistPsw';
+
 Vue.use(Router)
 
 export default new Router({
@@ -25,7 +29,13 @@ export default new Router({
     {
       path: '/regist',
       name: 'Regist',
-      component: Regist
+      component: Regist,
+      children:[
+        {path:'email',component:RegistEmail},
+        {path:'check',component:RegistCheck},
+        {path:'psw',component:RegistPsw},
+      ]
     }
+    
   ]
 })
