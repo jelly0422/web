@@ -11,10 +11,6 @@
       <div v-for="module in moduleList">
         <GoodsModule v-bind:module="module"></GoodsModule>
       </div>
-      <!-- <div>1111</div>
-      <div>222</div>
-      <div>3333</div>
-      <GoodsModule></GoodsModule> -->
     </div>
   </div>
 </template>
@@ -26,7 +22,7 @@ export default {
   components:{
     GoodsModule
   },
-  data(){
+  data (){
     return {
       moduleList: ["男装","女装","童装"],
     }
@@ -41,6 +37,14 @@ export default {
 </script>
 
 <style scoped>
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 150px;
+  margin: 0;
+}
+
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
