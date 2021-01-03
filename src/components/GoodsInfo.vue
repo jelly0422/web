@@ -27,7 +27,10 @@
         <el-button type="primary" round icon="el-icon-shopping-cart-2">加入购物车</el-button>
       </div>
     </form>
-
+    <br>
+    <br>
+    <br>
+    <br>
   </div>
 </template>
 
