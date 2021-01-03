@@ -11,7 +11,7 @@ Vue.use(ElementUI);
 Vue.prototype.$http = axios//将$http修改为axios
 Vue.config.productionTip = false
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:8080/';  
+axios.defaults.baseURL = 'http://192.168.1.109:8080/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 /* eslint-disable no-new */
 new Vue({
