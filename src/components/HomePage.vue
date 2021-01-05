@@ -50,7 +50,6 @@
         </article>
       </section>
     </div>
-
   </div>
 </template>
 
@@ -84,18 +83,18 @@ export default {
 }
 .absolute .left {
   position: absolute;
-  width: 225px;
+  width: 15%;
   left: 0;
 }
 .absolute .right {
   position: absolute;
-  width: 225px;
+  width: 15%;
   right: 0;
 }
 .absolute .center {
   position: absolute;
-  left: 225px;
-  right: 225px;
+  left: 15%;
+  right: 15%;
 }
 
 .el-carousel__item h3 {
