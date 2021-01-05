@@ -10,22 +10,19 @@
         background-color="#303133"
         text-color="#fff"
         active-text-color="#14E6CA">
-        <el-menu-item index="/userinfo">
+        <el-menu-item index="/userctrl/userinfo">
             <i class="el-icon-user"></i>
             <span slot="title">个人信息</span>
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="/userctrl/useraddress">
           <i class="el-icon-location-information"></i>
           <span slot="title">收货地址</span>
         </el-menu-item>
-        <el-menu-item index="/order">
+        <el-menu-item index="/userctrl/order">
           <i class="el-icon-tickets"></i>
-          <span slot="title">订单管理</span>
+          <span slot="title">订单查看</span>
         </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
+        <div style="height: 300px; color: #303133"></div>
       </el-menu>
     </el-col>
     <div><router-view></router-view></div>
