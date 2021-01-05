@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h5 align="center" style="font-size: 40px">个人信息</h5>
-    <br>
-    <hr>
-    <br>
-    <div>
-      <span style="margin-left: 5%">用户id: {{user.name}}</span>
-      <br>
-      <span style="margin-left: 5%">邮箱: {{user.email}}</span>
-    </div>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span style="font-size: 22px">个人信息</span>
+      </div>
+      <div class="text item">
+        <div>{{user.name}}</div>
+        <div>{{user.email}}</div>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -24,5 +24,14 @@ export default {
 </script>
 
 <style scoped>
+.text {
+  font-size: 14px;
+}
 
+.item {
+  padding: 18px 0;
+}
+
+.box-card {
+}
 </style>
