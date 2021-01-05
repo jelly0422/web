@@ -25,7 +25,7 @@ export default new Router({
       component: HomePage,redirect: '/mainstore',
       children: [
         {path: 'mainstore', component: MainStore},
-        {path: 'goodsinfo', component: GoodsInfo},
+        {path: 'goodsinfo', name:GoodsInfo, component: GoodsInfo},
         {path: 'goods', component: Goods},
         {path: 'cart', component: Cart},
         {
