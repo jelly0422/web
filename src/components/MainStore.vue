@@ -2,9 +2,14 @@
   <div>
     <div class="center">
       <div class="block">
-        <el-carousel height="150px">
-          <el-carousel-item v-for="item in 5" :key="item">
-            <h3 class="small">{{ item }}</h3>
+        <el-carousel height="400px">
+          <el-carousel-item v-for="(item,index) in carouselList.slice(0,6)" :key="index">
+            <router-link :to="{path:'goodsinfo',query:{goods: item}}">
+              <el-image
+                style="width: 500px"
+                :src="'http://8.129.71.20/photo/' + item.p1 + '.jpg'"
+                :fit="'cover'"></el-image>
+            </router-link>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -24,6 +29,7 @@ export default {
   },
   data (){
     return {
+      carouselList:[],
       moduleList: ["男装","女装","童装"],
     }
   },
@@ -31,7 +37,10 @@ export default {
 
   },
   created() {
-
+    this.$http('clothes?key=装').then(res=>{
+      this.carouselList = res.data
+      console.log(this.carouselList[0]);
+    })
   }
 }
 </script>
