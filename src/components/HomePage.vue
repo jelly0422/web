@@ -2,13 +2,12 @@
   <div id="homepage">
     <div id="nav">
       <a href="#/" id="home">首页</a>
-      <a href="#/login" class="a" id="login">登录</a>
-      <a href="#/regist" class="a" id="regist">注册</a>
+      <a href="#/login" class="a" id="login" ref="login">登录</a>
+      <a href="#/regist" class="a" id="regist" ref="regist">注册</a>
+      <span ref="userid" style="visibility: hidden; color: #99a9bf"></span>
+      <a href="#/cart" ref="cart" style="visibility: hidden;">购物车</a>
+      <a href="#/userctrl" ref="userctrl" style="visibility: hidden;">个人</a>
     </div>
-    <a href="#/goodsinfo">商品详情</a>
-    <a href="#/goods">商品</a>
-    <a href="#/cart">购物车</a>
-    <a href="#/userctrl">个人中心</a>
     <div>
       <!-- float 布局 -->
       <section class="layout absolute">
@@ -19,31 +18,24 @@
           <div class="right">&nbsp</div>
           <!-- 中间写一些内容撑开盒子 -->
           <div class="center">
-            <div class="block">
+            <span class="block" style="width: 50%">
               <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
                 <el-submenu index="2" >
                   <template slot="title">所有分类</template>
-                  <el-menu-item index="2-1">选项1</el-menu-item>
-                  <el-menu-item index="2-2">选项2</el-menu-item>
-                  <el-menu-item index="2-3">选项3</el-menu-item>
-                  <el-submenu index="2-4">
-                    <template slot="title">选项4</template>
-                    <el-menu-item index="2-4-1">选项1</el-menu-item>
-                    <el-menu-item index="2-4-2">选项2</el-menu-item>
-                    <el-menu-item index="2-4-3">选项3</el-menu-item>
-                  </el-submenu>
+                  <el-menu-item index="clothes?key=装">查看所有</el-menu-item>
+                  <el-menu-item index="clothes?key=男装">男装</el-menu-item>
+                  <el-menu-item index="clothes?key=女装">女装</el-menu-item>
+                  <el-menu-item index="clothes?key=童装">童装</el-menu-item>
                 </el-submenu>
-                <el-menu-item>
-                  <el-input
-                    placeholder="请输入内容"
-                    v-model="input"
-                    clearable>
-                  </el-input>
-                </el-menu-item>
-                <el-menu-item>
-                  <el-button type="primary" icon="el-icon-search">搜索</el-button>
-                </el-menu-item>
               </el-menu>
+            </span>
+            <div id="search">
+              <el-input
+                placeholder="请输入内容以搜索商品"
+                v-model="input"
+                clearable style="width: 225px">
+              </el-input>
+              <el-button type="primary" icon="el-icon-search" @click="doSearch">搜索</el-button>
             </div>
             <div><router-view></router-view></div>
           </div>
@@ -54,7 +46,7 @@
 </template>
 
 <script>
-import MainStore from "./MainStore";
+import Global from "./global/Global";
 
 export default {
   name: "HomePage",
@@ -66,11 +58,38 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      console.log(key);
+      //this.$http(key).then(res=>{
+        //console.log(res.data);
+        this.$router.push({name: 'ShowGoods',query:{search: key}})
+      //})
+    },
+    doSearch(){
+      console.log(this.input);
+      //this.$http('findClothes?key=' + this.input).then(res=>{
+        this.$router.push({
+          name: 'ShowGoods',
+          query:{search: 'findClothes?key=' + this.input}
+        })
+      //})
     }
   },
   created() {
-  }
+
+    this.$nextTick(()=>{
+      if (this.$cookies.isKey("userid")){
+        this.$refs.userid.innerText = "欢迎您：" + localStorage.getItem("id")
+        this.$refs.userid.style.visibility = "visible"
+        this.$refs.login.style.visibility = "hidden"
+        this.$refs.regist.style.visibility = "hidden"
+        this.$refs.cart.style.visibility = "visible"
+        this.$refs.userctrl.style.visibility = "visible"
+        localStorage.setItem("id",this.$cookies.get("userid"));
+        localStorage.setItem("email",this.$cookies.get("email"));
+        localStorage.setItem("wallet",this.$cookies.get("wallet"));
+      }
+    })
+  },
 }
 </script>
 
@@ -132,5 +151,10 @@ a:hover{
 }
 #login{
   margin-left: 45%;
+}
+#search{
+  position: absolute;
+  top: 1%;
+  left: 30%;
 }
 </style>
