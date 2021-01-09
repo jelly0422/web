@@ -6,7 +6,7 @@
         <div slot="header" class="clearfix">
           <span style="font-size: 35px">购物车</span>
           <span style="float: right; color: rgba(49,132,192,0.71);padding: 7px 0; font-size: 20px">总价：{{totalPrice}}</span>
-          <el-button style="float: right; padding: 10px 7%; font-size: 20px" type="text" @click="buy" :disabled="btnBoolean" ref="buy">结算</el-button>
+          <el-button style="float: right; padding: 10px 7%; font-size: 20px" type="text" @click="dialogVisible = true" :disabled="btnBoolean" ref="buy">结算</el-button>
           <div ref="userAdd">
             <br>
             <div style="font-size: 18px">选择收货地址</div>
@@ -24,8 +24,8 @@
             <el-checkbox :label="goods.id" :key="index">
               <el-image style="width: 75px;height: 75px" :src="'http://8.129.71.20/photo/' + goods.clothes.p1 + '.jpg'"></el-image>
               <span>
-                <span style="font-weight: bold; font-size: 18px">{{goods.clothes.name}}</span>
-                <span style="margin-left: 150%;">尺寸：{{size[goods.size]}}</span>
+                <span style="font-weight: bold; font-size: 18px; position: absolute; top: 50%;left: 50%">{{goods.clothes.name}}</span>
+                <span style="margin-left: 250%;">尺寸：{{size[goods.size]}}</span>
                 <span style="margin-left: 10%;">数量：{{goods.number}}</span>
                 <span style="margin-left: 10%; color: coral; font-size: 15px">总价：{{goods.money}}</span>
               </span>
@@ -35,6 +35,16 @@
         </el-checkbox-group>
       </el-card>
     </form>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>确定购买吗</span>
+      <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="buy">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -43,6 +53,7 @@ export default {
   name: "cart",
   data (){
     return{
+      dialogVisible: false,
       size:["小", "中", "大"],
       addressList: [],
       checkAll: false,
@@ -63,6 +74,21 @@ export default {
           if (elem === item.id){
             this.$http('buyClothes',{params:{id:elem,address: this.checkedAdd}}).then(res=>{
               console.log(res);
+              if (res.data === 1){
+                this.doCreate()
+                this.dialogVisible = false
+                this.$notify({
+                  title: '成功',
+                  message: '购买成功',
+                  type: 'success'
+                })
+              }else{
+                this.$notify({
+                  title: '失败',
+                  message: '购买失败',
+                  type: 'error'
+                })
+              }
             })
           }
         })
