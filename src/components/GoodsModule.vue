@@ -3,8 +3,7 @@
     <el-container>
       <el-header style="font-size: 18px">{{ module }}</el-header>
       <el-main>
-        <div id="goods" style="position: absolute"></div>
-        <Goods style="margin-left: 250px"></Goods>
+        <Goods v-for="(item, index) in list" v-bind:info="item" v-bind:key="index" style="float: left;margin-left: 15px"></Goods>
       </el-main>
     </el-container>
   </div>
@@ -18,7 +17,9 @@ export default {
     Goods
   },
   data(){
-    return{}
+    return{
+      list:[]
+    }
   },
   props: {
     module:{
@@ -30,7 +31,9 @@ export default {
 
   },
   created() {
-
+    this.$http('clothes?key=' + this.module).then(res=>{
+      this.list = res.data
+    })
   }
 }
 </script>
