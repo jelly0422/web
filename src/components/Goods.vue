@@ -4,15 +4,15 @@
       <span @click="jump">
         <el-image
           style="width: 140px; height: 175px"
-          :src="'http://8.129.71.20/1.jpg'"
-          :fit="'fill'"></el-image>
+          :src="'http://8.129.71.20/photo/' + info.p1 + '.jpg'"
+          :fit="'cover'"></el-image>
       </span>
     </div>
-    <span><a href="#/goodinfo" @click="jump">
+    <span><a href="#/goodsinfo" @click="jump">
       <div id="other">
-        <div class="info">商品名称</div>
+        <div class="info">{{info.name}}</div>
         <br>
-        <div class="info">价格</div>
+        <div class="info">{{ info.money }}</div>
       </div>
     </a></span>
   </div>
@@ -23,7 +23,13 @@ export default {
   name: "Goods",
   data(){
     return{
-      goods:{name: "大衣",price: 98,info: "lkahslebn"}
+      goods:this.info
+    }
+  },
+  props: {
+    info:{
+      type: Object,
+      required: true
     }
   },
   methods:{
@@ -35,9 +41,7 @@ export default {
         name: 'GoodsInfo',
         params: {
           //imgsListsUrl2是自己定义的名字，this.imgsListsUrl是要被传递的值
-          name: this.goods.name,
-          price: this.goods.price,
-          info: this.goods.info
+          goods: this.goods
         }
       })
     }
@@ -64,5 +68,8 @@ a{
 }
 #goods:hover{
   box-shadow: 3px 4px 15px 3px rgba(0, 0, 0, 0.1)
+}
+span:hover{
+  cursor: pointer;
 }
 </style>
