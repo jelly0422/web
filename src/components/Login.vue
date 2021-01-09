@@ -42,7 +42,7 @@
               trigger: 'blur',
             }"
           >
-            <el-input v-model="domain.value"></el-input>
+            <el-input v-model="domain.value" show-password></el-input>
           </el-form-item>
 
           <el-form-item>
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import Global from "./global/Global";
 export default {
   name: "Login",
 
@@ -83,8 +84,12 @@ export default {
         message: "登陆成功",
         type: "success",
       });
-    },
 
+      this.$router.push({
+        path: '/',
+        name: 'homepage'
+      })
+    },
     open2() {
       this.$message.error("邮箱或密码有误");
     },
@@ -101,11 +106,14 @@ export default {
             //   this.open2();
             //   this.resetForm("ruleForm");
             // }
-
+            console.log(res.data);
             let flag = res.data.flag;
             if(flag){
+              Global.isLogin.isLogin = true
+              this.$cookies.set("userid",res.data.id)
+              this.$cookies.set("email",res.data.email)
+              this.$cookies.set("wallet",res.data.wallet)
               this.open1();
-              localStorage.setItem("email",res.data.email);
               this.$router.push("/");
             }else{
               this.open2();
