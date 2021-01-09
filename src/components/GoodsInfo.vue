@@ -62,7 +62,7 @@ export default {
   },
   methods:{
     addToCart: function () {
-      if (Global.isLogin.isLogin===false){
+      if (!this.$cookies.isKey("userid")){
         this.dialogVisible = true
       }else{
         this.$http("/addClothes",{params:{userid:localStorage.getItem("id"),
