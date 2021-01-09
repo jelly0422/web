@@ -5,8 +5,8 @@
         <span style="font-size: 22px">个人信息</span>
       </div>
       <div class="text item">
-        <div>{{user.name}}</div>
-        <div>{{user.email}}</div>
+        <div>邮箱：{{user.email}}</div>
+        <div>账户余额：{{user.wallet}}</div>
       </div>
     </el-card>
   </div>
@@ -17,8 +17,20 @@ export default {
   name: "UserInfo",
   data (){
     return{
-      user:{name: "jelly", email: "1187893119@qq.com", }
+      user:{
+        email:"",wallet:"",
+      }
     }
+  },
+  methods:{
+    doCreate(){
+      console.log(localStorage.getItem("wallet"));
+      this.user.email = localStorage.getItem("email");
+      this.user.wallet = localStorage.getItem("wallet")
+    }
+  },
+  created() {
+    this.doCreate()
   }
 }
 </script>
