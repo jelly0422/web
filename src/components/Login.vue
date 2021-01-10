@@ -1,5 +1,6 @@
 <template>
   <div id="out">
+    <h1 id="title" align="center">FashionMall</h1>
     <div id="login">
       <div style="margin: auto">
         <h3></h3>
@@ -148,5 +149,9 @@ export default {
   box-shadow: 0px 0px 10px #000;
   display: grid;
   grid-auto-rows: 1fr 1fr 3fr;
+}
+#title{
+  font-family: FBLawnmower,serif;
+  font-size: 75px;
 }
 </style>
