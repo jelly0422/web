@@ -43,6 +43,11 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+  },
+  created() {
+    if (!this.$cookies.isKey("userid")){
+      this.$router.push({path: '/'})
+    }
   }
 }
 </script>
