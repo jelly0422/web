@@ -4,19 +4,52 @@
       <div slot="header" class="clearfix">
         <span style="font-size: 22px">用户订单</span>
       </div>
-      <div v-for="(item,index) in orderList" :key="index" class="text item">
-        <div style="font-size: 20px">{{item.name}}</div>
-        <div style="color: coral; float: right">总价：{{item.money}}</div>
-        <br>
-        <div>
-          <span>数量：{{item.number}}</span>
-          <span style="margin-left: 10%">尺寸：{{size[item.size]}}</span>
-        </div>
-        <div style="float: right">下单时间：{{item.time.split('.')[0].replace('T',' ')}}</div>
-        <div><el-divider></el-divider></div>
-      </div>
-      <span ref="noOrder" style="visibility: visible;font-size: 18px">暂无订单信息</span>
+      <el-table
+        :data="orderList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+        style="width: 100%;font-size: 15px"
+        :row-style="{height: '60px'}">
+        <el-table-column
+          prop="name"
+          label="商品名称"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="number"
+          label="数量"
+          width="150">
+        </el-table-column>
+        <el-table-column
+          prop="size"
+          label="尺寸">
+          <template slot-scope="scope">
+            <span>{{size[scope.row.size]}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="money"
+          label="总价"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="time"
+          label="下单时间"
+          width="180">
+          <template slot-scope="scope">
+            {{scope.row.time.replace("T"," ").split(".")[0]}}
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
+    <div class="block" align="center" style="position: absolute;left: 50%;top: 100%">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-size="pageSize"
+        layout="total, prev, pager, next"
+        :total="orderList.length">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -28,7 +61,9 @@ export default {
   data (){
     return{
       orderList:[],
-      size: ["小","中","大"]
+      size: ["小","中","大"],
+      currentPage: 1,
+      pageSize: 5
     }
   },
   methods:{
@@ -45,6 +80,12 @@ export default {
       val.replace("T"," ")
       val.split('.')
       console.log(val);
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
     }
   },
   created() {
