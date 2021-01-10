@@ -1,5 +1,6 @@
 <template>
   <div id="homepage">
+    <h1 id="title" align="center">FashionMall</h1>
     <div id="nav">
       <a href="#/" id="home">首页</a>
       <a href="#/login" class="a" id="login" ref="login">登录</a>
@@ -72,24 +73,38 @@ export default {
           query:{search: 'findClothes?key=' + this.input}
         })
       //})
+    },
+    doCreate(){
+      console.log(this.$cookies.isKey("userid"));
+      this.$nextTick(()=>{
+        console.log(1);
+        if (this.$cookies.isKey("userid")){
+          this.$refs.userid.innerText = "欢迎您：" + this.$cookies.get("userid")
+          this.$refs.userid.style.visibility = "visible"
+          this.$refs.login.style.visibility = "hidden"
+          this.$refs.regist.style.visibility = "hidden"
+          this.$refs.cart.style.visibility = "visible"
+          this.$refs.userctrl.style.visibility = "visible"
+          localStorage.setItem("id",this.$cookies.get("userid"));
+          localStorage.setItem("email",this.$cookies.get("email"));
+          localStorage.setItem("wallet",this.$cookies.get("wallet"));
+        }else{
+          this.$refs.userid.style.visibility = "hidden"
+          this.$refs.login.style.visibility = "visible"
+          this.$refs.regist.style.visibility = "visible"
+          this.$refs.cart.style.visibility = "hidden"
+          this.$refs.userctrl.style.visibility = "hidden"
+          localStorage.clear()
+        }
+      })
     }
   },
   created() {
-
-    this.$nextTick(()=>{
-      if (this.$cookies.isKey("userid")){
-        this.$refs.userid.innerText = "欢迎您：" + localStorage.getItem("id")
-        this.$refs.userid.style.visibility = "visible"
-        this.$refs.login.style.visibility = "hidden"
-        this.$refs.regist.style.visibility = "hidden"
-        this.$refs.cart.style.visibility = "visible"
-        this.$refs.userctrl.style.visibility = "visible"
-        localStorage.setItem("id",this.$cookies.get("userid"));
-        localStorage.setItem("email",this.$cookies.get("email"));
-        localStorage.setItem("wallet",this.$cookies.get("wallet"));
-      }
-    })
+    this.doCreate()
   },
+  beforeUpdate() {
+    this.doCreate()
+  }
 }
 </script>
 
@@ -156,5 +171,9 @@ a:hover{
   position: absolute;
   top: 1%;
   left: 30%;
+}
+#title{
+  font-family: FBLawnmower,serif;
+  font-size: 75px;
 }
 </style>
