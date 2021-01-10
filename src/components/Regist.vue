@@ -1,5 +1,8 @@
 <template>
-      <router-view></router-view>
+  <div>
+    <h1 id="title" align="center">FashionMall</h1>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -20,5 +23,8 @@ export default {
 </script>
 
 <style scoped>
-
+#title{
+  font-family: FBLawnmower,serif;
+  font-size: 75px;
+}
 </style>
