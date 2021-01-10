@@ -18,6 +18,13 @@
           <br>
         </div>
         <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+          <el-popconfirm
+            icon="el-icon-info"
+            icon-color="red"
+            title="确定删除吗？"
+            @confirm="deleteGoods">
+            <el-button type="danger" icon="el-icon-delete" circle slot="reference" style="float: right" :disabled="delDisable" ref="del"></el-button>
+          </el-popconfirm>
         <el-divider></el-divider>
         <el-checkbox-group v-model="data" @change="handleCheckedGoodsChange">
           <div v-for="(goods,index) in goodsList">
@@ -65,9 +72,31 @@ export default {
       //判断结算按钮是否可点击
       btnBoolean: true,
       totalPrice: 0,
+      delDisable: true
     }
   },
   methods:{
+    deleteGoods(){
+      this.goodsList.forEach((item)=>{
+        this.data.forEach((elem)=>{
+          if (elem === item.id){
+            this.$http('deleteCar',{params:{id:elem}}).then(res=>{
+              console.log(res);
+              if (res.data === 1){
+                this.doCreate()
+              }else{
+                this.$notify({
+                  title: '失败',
+                  message: '购买失败',
+                  type: 'error'
+                })
+              }
+            })
+          }
+        })
+        //console.log(item);
+      })
+    },
     buy: function(){
       this.goodsList.forEach((item)=>{
         this.data.forEach((elem)=>{
@@ -116,8 +145,14 @@ export default {
       }
     },
     handleCheckAllChange(val) {
+
       this.totalPrice = 0;
-      if (val && this.addressList !== null){
+      if (val){
+        this.delDisable = false
+      }else{
+        this.delDisable = true
+      }
+      if (val && this.addressList !== null && this.checkedAdd.length !== 0){
         this.btnBoolean = false;
         this.goodsList.forEach((item)=> {
           this.totalPrice += item.money;
@@ -137,6 +172,12 @@ export default {
       this.totalPrice = 0;
       let checkedCount = value.length;
       //console.log(this.checkedAdd);
+      console.log(checkedCount);
+      if (checkedCount !== 0){
+        this.delDisable = false
+      }else{
+        this.delDisable = true
+      }
       if (checkedCount !==0 && this.addressList.length !==0 && this.checkedAdd.length !== 0){
         this.btnBoolean = false;
         this.goodsList.forEach((item)=>{
@@ -174,7 +215,11 @@ export default {
     }
   },
   created() {
-    this.doCreate()
+    if (this.$cookies.isKey("userid")){
+      this.doCreate()
+    }else{
+      this.$router.push({ path: '/'})
+    }
   }
 }
 </script>
